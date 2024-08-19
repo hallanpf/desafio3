@@ -1,4 +1,4 @@
-import { NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { Product } from "../../entities/product";
 import { ProductRepository } from "../../repositories/productRepository";
 
@@ -16,6 +16,7 @@ interface PaginatedProducts {
   pages: number[];
 }
 
+@Injectable()
 export class GetManyProductUseCase {
   constructor(private productRepository: ProductRepository) {}
 
@@ -45,7 +46,7 @@ export class GetManyProductUseCase {
     }
 
     return {
-      products: paginatedProducts,
+      products: products || paginatedProducts,
       currentPage: page,
       totalPages,
       hasNextPage,

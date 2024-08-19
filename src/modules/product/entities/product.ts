@@ -1,15 +1,15 @@
 import { randomUUID } from "crypto";
 import { Replace } from "src/utils/replace";
 
-interface ProductProps {
+interface ProductSchema {
   name: string;
   description: string;
   userId: string;
   tags: Tag[];
   productVariants: ProductVariant[];
   productImages: ProductImage[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 interface ProductVariant {
@@ -19,41 +19,42 @@ interface ProductVariant {
   sku: string;
   color: string;
   quantity: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   productId: string;
 }
 
 interface ProductImage {
   id: string;
   url: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   productId: string;
 }
 
 interface Tag {
   id: string;
   tags: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   productId: string;
 }
 
-
 export class Product {
-  private props: ProductProps;
+  private props: ProductSchema;
   private _id: string;
 
   constructor(
-    props: Replace<ProductProps, { productVariants: ProductVariant[]; productImages: ProductImage[]; tags: Tag[] }>,
+    props: Replace<ProductSchema, { productVariants?: ProductVariant[]; productImages?: ProductImage[]; tags?: Tag[]; createdAt?: Date; updatedAt?: Date }>,
     id?: string,
   ) {
     this.props = {
       ...props,
-      productVariants: props.productVariants,
-      productImages: props.productImages,
-      tags: props.tags,
+      productVariants: props.productVariants || [],
+      productImages: props.productImages || [],
+      tags: props.tags || [],
+      createdAt: props.createdAt || new Date(),
+      updatedAt: props.updatedAt || new Date(),
     };
     this._id = id || randomUUID();
   }
@@ -125,4 +126,4 @@ export class Product {
   set updatedAt(updatedAt: Date) {
     this.props.updatedAt = updatedAt;
   }
-};
+}

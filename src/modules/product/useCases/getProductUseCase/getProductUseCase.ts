@@ -1,4 +1,4 @@
-import { NotFoundException, UnauthorizedException } from "@nestjs/common";
+import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { Product } from "../../entities/product";
 import { ProductRepository } from "../../repositories/productRepository";
 
@@ -7,7 +7,7 @@ interface GetProductRequest {
   userId: string;
 }
 
-
+@Injectable()
 export class GetProductUseCase {
   constructor(private productRepository: ProductRepository) {}
 

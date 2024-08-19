@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common";
 import { Product } from "../../entities/product";
 import { ProductRepository } from "../../repositories/productRepository";
 
@@ -38,16 +39,45 @@ interface ProductImage {
   productId: string;
 }
 
+@Injectable()
 export class CreateProductUseCase {
   constructor(private productRepository: ProductRepository) {}
   async execute({ name, description, userId, tags, productVariants, productImages }: CreateProductRequest) {
+    const tagArray = tags.map(tag => ({
+      id: tag.id,
+      tags: tag.tags,
+      createdAt: tag.createdAt,
+      updatedAt: tag.updatedAt,
+      productId: tag.productId,
+    }));
+
+    const productVariantsArray = productVariants.map(productVariant => ({
+      id: productVariant.id,
+      price: productVariant.price,
+      size: productVariant.size,
+      sku: productVariant.sku,
+      color: productVariant.color,
+      quantity: productVariant.quantity,
+      createdAt: productVariant.createdAt,
+      updatedAt: productVariant.updatedAt,
+      productId: productVariant.productId,
+    }));
+
+    const productImagesArray = productImages.map(productImage => ({
+      id: productImage.id,
+      url: productImage.url,
+      createdAt: productImage.createdAt,
+      updatedAt: productImage.updatedAt,
+      productId: productImage.productId,
+    }));
+  
     const product = new Product({
       name,
       description,
       userId,
-      tags,
-      productVariants,
-      productImages,
+      tags: tagArray,
+      productVariants: productVariantsArray,
+      productImages: productImagesArray,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
