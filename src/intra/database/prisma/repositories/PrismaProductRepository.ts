@@ -11,19 +11,60 @@ export class PrismaProductRepository implements ProductRepository {
 
   async create(product: Product): Promise<void> {
     const productRaw = PrismaProductMapper.toPrisma(product);
-    await this.prisma.product.create({
-      data: productRaw
+
+    const createdProduct = await this.prisma.product.create({
+      data: {
+        id: productRaw.id,
+        name: productRaw.name,
+        description: productRaw.description,
+        userId: productRaw.userId,
+        createdAt: productRaw.createdAt,
+        updatedAt: productRaw.updatedAt,
+      },
+    });
+
+    await this.prisma.tags.createMany({
+      data: productRaw.Tags.map(tag => ({
+        ...tag,
+        productId: createdProduct.id,
+      })),
+    });
+
+    await this.prisma.productVariant.createMany({
+      data: productRaw.ProductVariant.map(variant => ({
+        ...variant,
+        productId: createdProduct.id,
+      })),
+    });
+
+    await this.prisma.productImages.createMany({
+      data: productRaw.ProductImages.map(image => ({
+        ...image,
+        productId: createdProduct.id,
+      })),
     });
   }
 
   async findById(id: string): Promise<Product | null> {
     const productRaw = await this.prisma.product.findUnique({
       where: {
-        id
-      }
+        id,
+      },
+      include: {
+        Tags: true,
+        ProductVariant: true,
+        ProductImages: true,
+      },
     });
+
     if (!productRaw) return null;
-    return PrismaProductMapper.toDomain(productRaw);    
+
+    return PrismaProductMapper.toDomain({
+      ...productRaw,
+      Tags: productRaw.Tags,
+      ProductVariant: productRaw.ProductVariant,
+      ProductImages: productRaw.ProductImages,
+    });
   }
 
   async delete(product: Product): Promise<void> {
@@ -36,15 +77,29 @@ export class PrismaProductRepository implements ProductRepository {
 
   async update(product: Product): Promise<void> {
     const productRaw = PrismaProductMapper.toPrisma(product);
+
     await this.prisma.product.update({
+      data: {
+        name: productRaw.name,
+        description: productRaw.description,
+        userId: productRaw.userId,
+        createdAt: productRaw.createdAt,
+        updatedAt: productRaw.updatedAt,
+      },
       where: {
         id: product.id
       },
-      data: productRaw
-    });
+    })
   }
+
   async findAll(): Promise<Product[]> {
-    const productsRaw = await this.prisma.product.findMany();
+    const productsRaw = await this.prisma.product.findMany({
+      include: {
+        Tags: true,
+        ProductVariant: true,
+        ProductImages: true,
+      },
+    });
 
     return productsRaw.map(PrismaProductMapper.toDomain);
   }

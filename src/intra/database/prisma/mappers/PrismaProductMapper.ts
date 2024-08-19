@@ -1,5 +1,10 @@
 import { Product } from '../../../../modules/product/entities/Product';
-import { Product as ProductRaw } from '@prisma/client';
+import { 
+  Product as ProductRaw, 
+  Tags as TagRaw, 
+  ProductVariant as ProductVariantRaw, 
+  ProductImages as ProductImageRaw 
+} from '@prisma/client';
 
 export class PrismaProductMapper {
   static toPrisma({
@@ -8,8 +13,11 @@ export class PrismaProductMapper {
     description,
     userId,
     createdAt,
-    updatedAt,    
-  }: Product): ProductRaw{
+    updatedAt,
+    tags,
+    productVariants,
+    productImages,
+  }: Product): ProductRaw & { Tags: TagRaw[], ProductVariant: ProductVariantRaw[], ProductImages: ProductImageRaw[] } {
     return {
       id,
       name,
@@ -17,26 +25,66 @@ export class PrismaProductMapper {
       userId,
       createdAt,
       updatedAt,
+      Tags: tags.map(tag => ({
+        id: tag.id,
+        tags: tag.tags,
+        createdAt: tag.createdAt,
+        updatedAt: tag.updatedAt,
+        productId: id,
+      })),
+      ProductVariant: productVariants.map(variant => ({
+        id: variant.id,
+        price: variant.price,
+        size: variant.size,
+        sku: variant.sku,
+        color: variant.color,
+        quantity: variant.quantity,
+        createdAt: variant.createdAt,
+        updatedAt: variant.updatedAt,
+        productId: id,
+      })),
+      ProductImages: productImages.map(image => ({
+        id: image.id,
+        url: image.url,
+        createdAt: image.createdAt,
+        updatedAt: image.updatedAt,
+        productId: id,
+      })),
     };
   }
 
-  static toDomain({
-    id, 
-    name, 
-    description,
-    userId,
-    createdAt, 
-    updatedAt, 
-  }: ProductRaw): Product {
+  static toDomain(productRaw: ProductRaw & { Tags: TagRaw[], ProductVariant: ProductVariantRaw[], ProductImages: ProductImageRaw[] }): Product {
     return new Product({
-      name,
-      description,
-      userId,
-      createdAt,
-      updatedAt,
-      productVariants: [],
-      productImages: [],
-      tags: [],
-    }, id);
-    }
+      name: productRaw.name,
+      description: productRaw.description,
+      userId: productRaw.userId,
+      createdAt: productRaw.createdAt,
+      updatedAt: productRaw.updatedAt,
+      tags: productRaw.Tags.map(tag => ({
+        id: tag.id,
+        tags: tag.tags,
+        createdAt: tag.createdAt,
+        updatedAt: tag.updatedAt,
+        productId: tag.productId,
+      })),
+      productVariants: productRaw.ProductVariant.map(variant => ({
+        id: variant.id,
+        price: variant.price,
+        size: variant.size,
+        sku: variant.sku,
+        color: variant.color,
+        quantity: variant.quantity,
+        createdAt: variant.createdAt,
+        updatedAt: variant.updatedAt,
+        productId: variant.productId,
+      })),
+      productImages: productRaw.ProductImages.map(image => ({
+        id: image.id,
+        url: image.url,
+        createdAt: image.createdAt,
+        updatedAt: image.updatedAt,
+        productId: image.productId,
+      })),
+    }, productRaw.id);
   }
+}
