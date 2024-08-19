@@ -34,6 +34,8 @@ describe ('CreateProductUseCase', () => {
           sku: 'SKU',
           color: 'Color',
           quantity: 10,
+          category: 'Category',
+          discount: 0,
           createdAt: new Date(),
           updatedAt: new Date(),
           productId: 'Product Id'

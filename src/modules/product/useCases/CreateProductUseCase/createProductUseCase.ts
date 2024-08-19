@@ -26,6 +26,8 @@ interface ProductVariant {
   sku: string;
   color: string;
   quantity: number;
+  category: string;
+  discount: number;
   createdAt: Date;
   updatedAt: Date;
   productId: string;
@@ -58,6 +60,8 @@ export class CreateProductUseCase {
       sku: productVariant.sku,
       color: productVariant.color,
       quantity: productVariant.quantity,
+      category: productVariant.category,
+      discount: productVariant.discount,
       createdAt: productVariant.createdAt,
       updatedAt: productVariant.updatedAt,
       productId: productVariant.productId,

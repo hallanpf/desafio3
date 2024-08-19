@@ -21,6 +21,12 @@ class ProductVariant {
   @IsNumber()
   quantity: number;
 
+  @IsString()
+  category: string;
+
+  @IsNumber()
+  discount: number;
+
   @IsDate()
   @IsOptional()
   @Transform(({ value }) => new Date(value), { toClassOnly: true })

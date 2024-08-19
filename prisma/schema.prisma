@@ -59,6 +59,8 @@ model ProductVariant {
   sku       String
   color     String
   quantity  Int
+  category  String
+  discount  Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

@@ -25,6 +25,8 @@ interface ProductVariant {
   sku: string;
   color: string;
   quantity: number;
+  category: string;
+  discount: number;
   createdAt: Date;
   updatedAt: Date;
   productId: string;
