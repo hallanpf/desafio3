@@ -73,14 +73,14 @@ export class ProductsController {
     });
   }
 
+  @Public()
   @Get(':id')
   async getProduct(
     @Request() request: AuthenticatedRequestModel,
-    @Param('id') productId: string,
+    @Param('id') productId: string
   ) {
   const product = await this.getProductUseCase.execute({
     productId,
-    userId: request.user.id,
   });
   
   return ProductViewModel.toHttp(product);

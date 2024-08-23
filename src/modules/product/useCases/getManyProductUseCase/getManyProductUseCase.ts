@@ -46,7 +46,7 @@ export class GetManyProductUseCase {
     }
 
     return {
-      products: products || paginatedProducts,
+      products: paginatedProducts,
       currentPage: page,
       totalPages,
       hasNextPage,

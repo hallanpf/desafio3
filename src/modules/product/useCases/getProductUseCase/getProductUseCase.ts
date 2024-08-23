@@ -4,7 +4,6 @@ import { ProductRepository } from "../../repositories/productRepository";
 
 interface GetProductRequest {
   productId: string;
-  userId: string;
 }
 
 @Injectable()
@@ -17,11 +16,7 @@ export class GetProductUseCase {
     if (!product) {
       throw new NotFoundException();
     }
-  
-    if (product.userId !== data.userId) {
-      throw new UnauthorizedException();
-    }
-  
+      
     return product;   
   }
 }
