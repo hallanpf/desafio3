@@ -8,6 +8,7 @@ import { EditProductBody } from "./dtos/editProductBody";
 import { DeleteProductUseCase } from "src/modules/product/useCases/DeleteProductUseCase/deleteProductUseCase";
 import { GetProductUseCase } from "src/modules/product/useCases/getProductUseCase/getProductUseCase";
 import { GetManyProductUseCase } from "src/modules/product/useCases/getManyProductUseCase/getManyProductUseCase";
+import { Public } from "../auth/decorators/isPublic";
 
 @Controller('products')
 export class ProductsController {
@@ -85,6 +86,7 @@ export class ProductsController {
   return ProductViewModel.toHttp(product);
   }
 
+  @Public()
   @Get()
   async GetManyProducts(
     @Request() request: AuthenticatedRequestModel,
