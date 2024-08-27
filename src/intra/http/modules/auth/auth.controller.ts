@@ -16,7 +16,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   async signIn(@Request() req: AuthRequestModel) {
     const accessToken = await this.signInUseCase.execute({user: req.user});
-    console.log("Successfull login");
+    console.log("Successful login");
     return { accessToken };
   } 
 
