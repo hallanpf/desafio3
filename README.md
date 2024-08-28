@@ -2,7 +2,7 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
-  <p align="center">Projeto Front-end em <a href="https://react.dev/" target="_blank">React</a> com <a href="https://redux-toolkit.js.org/" target="_blank">Redux</a> para o desafio realizado no estágio da <a href="https://compass.uol/en/home/" target="_blank">Compass.UOL</a>.</p>
+  <p align="center">Projeto Back-end em <a href="http://nestjs.com/" target="_blank">NestJS</a> com <a href="http://docker.com" target="_blank">Docker</a> e <a href="http://www.prisma.io/" target="_blank">Prisma</a>para o desafio realizado no estágio da <a href="https://compass.uol/en/home/" target="_blank">Compass.UOL</a>.</p>
 
 
 ## Tecnologias usadas
