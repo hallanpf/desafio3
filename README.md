@@ -2,12 +2,12 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
-  <p align="center">Projeto Back-end em <a href="http://nestjs.com/" target="_blank">NestJS</a> com <a href="http://docker.com" target="_blank">Docker</a> e <a href="http://www.prisma.io/" target="_blank">Prisma</a>para o desafio realizado no estágio da <a href="https://compass.uol/en/home/" target="_blank">Compass.UOL</a>.</p>
+  <p align="center">Projeto Back-end em <a href="http://nestjs.com/" target="_blank">NestJS</a> com <a href="http://docker.com" target="_blank">Docker</a> e <a href="http://www.prisma.io/" target="_blank">Prisma</a> para o desafio realizado no estágio da <a href="https://compass.uol/en/home/" target="_blank">Compass.UOL</a>.</p>
 
 
 ## Tecnologias usadas
 
-**[Nest]**: NestJS é um framework Node.js de código aberto destinado ao desenvolvimento de aplicativos do lado do servidor. 
+**[NestJS]**: NestJS é um framework Node.js de código aberto destinado ao desenvolvimento de aplicativos do lado do servidor. 
 
 **[TypeScript]**: linguagem de programação de código aberto desenvolvida pela Microsoft. É um superconjunto sintático estrito de JavaScript e adiciona tipagem estática opcional à linguagem.
 
@@ -39,6 +39,10 @@ $ npm run prisma:seed
 $ npm run start:dev
 ```
 
+## Usuário teste:
+
+**[Email]**: teste@teste.com.br
+**[Password]**: 1234567
 
 <p align="center">
   Desenvolvidor por Hallan Pedrosa Ferreira
