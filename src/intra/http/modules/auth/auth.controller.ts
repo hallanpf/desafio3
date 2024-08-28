@@ -17,7 +17,9 @@ export class AuthController {
   async signIn(@Request() req: AuthRequestModel) {
     const accessToken = await this.signInUseCase.execute({user: req.user});
     console.log("Successful login");
-    return { accessToken };
+    console.log(accessToken);
+    console.log(req.user);
+    return { accessToken, user: req.user };
   } 
 
   // @Get("teste")
